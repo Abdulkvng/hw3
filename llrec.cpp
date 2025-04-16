@@ -1,54 +1,49 @@
 #include "llrec.h"
-#include <iostream>
-
-/**
- * 
- */
-void llpivot(Node*& head, Node*& smaller, Node*& larger, int pivot) {
-    // Base case if theres empty list
-    if (head == nullptr) {
-        smaller = nullptr;
-        larger = nullptr;
-        return; }
-    
-    // Save next node and then detach current node
-    Node* next_node = head->next;
-    head->next = nullptr;
-    
-    // Recursively process the rest of the list
-    llpivot(next_node, smaller, larger, pivot);
-    
-    // Place current node in the right list
-    if (head->val <= pivot) {
-head->next = smaller;
-    smaller = head; } 
-    else { head->next = larger;
-        larger = head;}
-  
-    // Clear the OG list reference
-    head = nullptr; }
 
 /**
  * Recursive implementation of llfilter that removes nodes based on
  * a predicate function. Operates in O(n) time.
  */
-Node* llfilter(Node* head, Predicate p) {
-    // Base case: empty list
-    if (head == nullptr) {
-        return nullptr;
-    }
+// Rn
+void llpivot(Node*& head, Node*& smaller, Node*& larger, int pivot) {
+  //base case - if there lisr becomes empty 
+   if (!head) {
+  smaller = larger = nullptr;
+ return; }
     
-    // Recursively filter the rest of the list
-    Node* filtered_rest = llfilter(head->next, p);
+  Node* next = head->next;
+  head->next = nullptr;
+    llpivot(next, smaller, larger, pivot);
+    // if statemens
+if (head->val <= pivot) {
+     head->next = smaller;
+        smaller = head; } 
+  else {
+    head->next = larger;
+  larger = head; }
+  head = nullptr; }
+
+
+
+// Node* llfilter(Node* head, Predicate p) {
+//     // Base case: empty list
+//     if (head == nullptr) {
+//         return nullptr;}
     
-    // Check if current node should be kept
-    if (p(head->val)) {
-        // Delete current node and return filtered rest
-        delete head;
-        return filtered_rest; } else {
-        // Kkeep the current  node and thenn attach filtered rest
-        head->next = filtered_rest;
-        return head;} }
+//     // use recursion and go through  list 
+//     Node* filtered_rest = llfilter(head->next, p);
+  
+//     // Check if current node should be kept
+//     if (p(head->val)) {
+//         // Delete current node and return filtered rest
+//     delete head;
+//    return filtered_rest; } else {
+//        // Kkeep the current  node and thenn attach filtered rest
+//        head->next = filtered_rest;
+//      return head;} }
+
+
+
 // // approach 1
 // void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot){
 // // if empty 
@@ -88,8 +83,6 @@ Node* llfilter(Node* head, Predicate p) {
 
 //     // Recursively call - make sure to check if original list is empty
 //     llpivot(head, smaller, larger, pivot);}
-
-
 
 
 

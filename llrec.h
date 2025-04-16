@@ -1,57 +1,13 @@
 #ifndef LLREC_H
 #define LLREC_H
 
-#include <functional>  // 
-
- //Given a linked list pointed to by head, removes (filters out) nodes
-//  * whose value does not meet the criteria given by the predicate
-//  * function object, pred (i.e. pred should be a function object that implements
-//  * `bool operator()(int value)` and returns *true* for items that should
-//  * be *removed/filtered*.  Removed items should be deallocated.
-//  *
-//  * ==============================================================
-//  * MUST RUN IN O(n) where n is the number of nodes in the input list
-//  * ==============================================================
-//  *
-//  * @param[in] head
-//  *   Reference to the head pointer to the input list.
-//  * @param[in] pred
-//  *   Predicate object implementing: `bool operator()(int value)` that
-//  *   returns true if a node (based on its value) should be removed.
-//  * @return a head pointer to the resulting list (since the head pointer
-//  *   may change [i.e. be filtered])
-//  *
-//  */
+// node strucc
 struct Node {
     int val;
     Node* next;
     Node(int v, Node* n) : val(v), next(n) {}
 };
 
-typedef std::function<bool(int)> Predicate;
-
-void llpivot(Node*& head, Node*& smaller, Node*& larger, int pivot);
-Node* llfilter(Node* head, Predicate p);
-
-#endif
-
-// #ifndef LLREC_H
-// #define LLREC_H
-
-// #ifndef NULL
-// #define NULL 0
-// #endif
-
-// /**
-//  * Node struct for both problems
-//  */
-// struct Node
-// {
-//     int val;
-//     Node *next;
-
-//     Node(int v, Node* n) : val(v), next(n) {}
-// };
 
 // /**
 //  * Given a linked list pointed to by head, creates two lists
@@ -105,8 +61,21 @@ Node* llfilter(Node* head, Predicate p);
 //  * @return a head pointer to the resulting list (since the head pointer
 //  *   may change [i.e. be filtered])
 //  *
-//  */
-// typedef std::function<bool(int)> pred;
-// Node* llfilter(Node* head, pred p);
 
-// #endif
+
+// Recurseee
+void llpivot(Node*& head, Node*& smaller, Node*& larger, int pivot);
+//template
+
+template <typename Comp>
+Node* llfilter(Node* head, Comp pred) {
+    if (!head) return nullptr;
+    
+Node* next = llfilter(head->next, pred);
+    if (pred(head->val)) {
+    delete head;
+  return next;}
+head->next = next;
+    return head;}
+
+#endif
