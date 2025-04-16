@@ -96,7 +96,7 @@ template <typename T, typename PComparator>
 T const& Heap<T, PComparator>::top() const {
     if (empty()) {
         throw std::underflow_error("Heap is empty"); }
-    return heap_[0];c}
+    return heap_[0];}
 
 // Remove the top and then heapify donw
 template <typename T, typename PComparator>
